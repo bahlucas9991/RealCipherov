@@ -190,6 +190,19 @@
     <!-- Built-in presets info -->
     <string name="built_in_presets_count">60+ built-in device presets included</string>
 
+    <!-- Pricing / Membership -->
+    <string name="settings_pricing_title">Membership</string>
+    <string name="settings_pricing_summary">View feature tiers and membership plans</string>
+    <string name="pricing_freemium">Freemium</string>
+    <string name="pricing_freemium_desc">Essential privacy features — free for everyone</string>
+    <string name="pricing_silver">Silver (Lifetime)</string>
+    <string name="pricing_silver_desc">One-time payment for advanced SIM and Google spoofing</string>
+    <string name="pricing_premium">Premium (Subscription)</string>
+    <string name="pricing_premium_desc">Full control including Android ID, DRM, and random all</string>
+    <string name="pricing_alpha">Alpha (Subscription)</string>
+    <string name="pricing_alpha_desc">Cutting-edge features — hide root, mock location, profiles, groups</string>
+    <string name="pricing_note">Features and pricing subject to change. All plans are per-device.</string>
+
     <!-- Empty scope - user selects apps in LSPosed -->
     <string-array name="xposed_scope" />
 </resources>

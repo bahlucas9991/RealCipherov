@@ -149,6 +149,7 @@ public class AppSettingsFragment extends Fragment {
             }
         });
 
+        binding.pricingRow.setOnClickListener(v -> showPricingDialog());
         binding.presetSourceRow.setOnClickListener(v -> showPresetSourceDialog());
         binding.themeRow.setOnClickListener(v -> showThemeDialog());
         binding.languageRow.setOnClickListener(v -> showLanguageDialog());
@@ -352,6 +353,19 @@ public class AppSettingsFragment extends Fragment {
                 dialog.dismiss();
             })
             .setNegativeButton(android.R.string.cancel, null)
+            .show();
+    }
+
+    private void showPricingDialog() {
+        if (binding == null) {
+            return;
+        }
+        View dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_pricing, null, false);
+        new MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.settings_pricing_title)
+            .setView(dialogView)
+            .setPositiveButton(android.R.string.ok, null)
             .show();
     }
 
