@@ -50,19 +50,25 @@
         android:orientation="vertical">
 
         <TextView
+            style="@style/Widget.DeviceSpoofLab.SectionHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/settings_diagnostics_title"
-            android:textAllCaps="true"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:paddingStart="0dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.DeviceSpoofLab.Card.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeWidth="0dp">
 
         <LinearLayout
             android:id="@+id/open_real_info_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -70,6 +76,8 @@
             android:gravity="center_vertical"
             android:minHeight="72dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp">
 
@@ -113,21 +121,29 @@
                 app:tint="?attr/colorOutline" />
         </LinearLayout>
 
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
+            style="@style/Widget.DeviceSpoofLab.SectionHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:text="@string/settings_presets_title"
-            android:textAllCaps="true"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:paddingStart="0dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.DeviceSpoofLab.Card.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeWidth="0dp">
 
         <LinearLayout
             android:id="@+id/preset_source_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -135,6 +151,8 @@
             android:gravity="center_vertical"
             android:minHeight="72dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp">
 
@@ -176,21 +194,29 @@
                 app:tint="?attr/colorOutline" />
         </LinearLayout>
 
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
+            style="@style/Widget.DeviceSpoofLab.SectionHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:text="@string/settings_appearance_title"
-            android:textAllCaps="true"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:paddingStart="0dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.DeviceSpoofLab.Card.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeWidth="0dp">
 
         <LinearLayout
             android:id="@+id/theme_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -198,6 +224,8 @@
             android:gravity="center_vertical"
             android:minHeight="72dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp">
 
@@ -250,6 +278,8 @@
             android:gravity="center_vertical"
             android:minHeight="72dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp">
 
@@ -302,6 +332,8 @@
             android:gravity="center_vertical"
             android:minHeight="72dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp">
 
@@ -355,6 +387,8 @@
             android:gravity="center_vertical"
             android:minHeight="72dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
             android:visibility="gone">
@@ -397,21 +431,29 @@
                 app:tint="?attr/colorOutline" />
         </LinearLayout>
 
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
+            style="@style/Widget.DeviceSpoofLab.SectionHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:text="@string/settings_runtime_title"
-            android:textAllCaps="true"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:paddingStart="0dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.DeviceSpoofLab.Card.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeWidth="0dp">
 
         <LinearLayout
             android:id="@+id/resolution_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -419,6 +461,8 @@
             android:gravity="center_vertical"
             android:minHeight="72dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp">
 
@@ -471,6 +515,8 @@
             android:gravity="center_vertical"
             android:minHeight="72dp"
             android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp">
 
@@ -511,6 +557,118 @@
                 android:src="@drawable/ic_settings_chevron"
                 app:tint="?attr/colorOutline" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hide_root_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:minHeight="72dp"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_settings_safe_mode"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_hide_root"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/settings_hide_root_summary"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/hide_root_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:saveEnabled="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mock_location_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:minHeight="72dp"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_settings_resolution"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_mock_location"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/settings_mock_location_summary"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/mock_location_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:saveEnabled="false" />
+        </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

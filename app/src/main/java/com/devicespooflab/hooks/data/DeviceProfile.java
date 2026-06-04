@@ -43,6 +43,9 @@ public class DeviceProfile {
     private String cpuAbiList32;
     private String socModel;
     private String socManufacturer;
+    private String bluetoothMac;
+    private String wifiMac;
+    private String wifiSsid;
 
     public DeviceProfile() {
     }
@@ -86,6 +89,9 @@ public class DeviceProfile {
         this.cpuAbiList32 = other.cpuAbiList32;
         this.socModel = other.socModel;
         this.socManufacturer = other.socManufacturer;
+        this.bluetoothMac = other.bluetoothMac;
+        this.wifiMac = other.wifiMac;
+        this.wifiSsid = other.wifiSsid;
     }
 
     public DeviceProfile copy() {
@@ -284,4 +290,10 @@ public class DeviceProfile {
     public void setSocModel(String socModel) { this.socModel = socModel; }
     public String getSocManufacturer() { return socManufacturer; }
     public void setSocManufacturer(String socManufacturer) { this.socManufacturer = socManufacturer; }
+    public String getBluetoothMac() { return bluetoothMac; }
+    public void setBluetoothMac(String bluetoothMac) { this.bluetoothMac = bluetoothMac; }
+    public String getWifiMac() { return wifiMac; }
+    public void setWifiMac(String wifiMac) { this.wifiMac = wifiMac; }
+    public String getWifiSsid() { return wifiSsid; }
+    public void setWifiSsid(String wifiSsid) { this.wifiSsid = wifiSsid; }
 }

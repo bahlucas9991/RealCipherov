@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaDrm;
 import android.net.Uri;
+import android.provider.Settings;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -156,6 +157,9 @@ public class DeviceSettingsFragment extends Fragment {
         draft.setSimOperatorNumeric(text(binding.inputOperatorNumeric));
         draft.setSimCountryIso(text(binding.inputSimCountry));
         draft.setTimezone(text(binding.inputTimezone));
+        draft.setBluetoothMac(text(binding.inputBluetoothMac));
+        draft.setWifiMac(text(binding.inputWifiMac));
+        draft.setWifiSsid(text(binding.inputWifiSsid));
         return new Draft(draft, selectedPresetId, customMode, buildExtraProperties());
     }
 
@@ -232,6 +236,12 @@ public class DeviceSettingsFragment extends Fragment {
         binding.layoutAdvancedAppSetId.setEndIconOnClickListener(v ->
             setText(binding.inputAdvancedAppSetId, RandomGenerator.generateGAID())
         );
+        binding.layoutAdvancedAndroidId.setEndIconOnClickListener(v ->
+            setText(binding.inputAdvancedAndroidId, RandomGenerator.generateAndroidId())
+        );
+        binding.layoutAdvancedImei2.setEndIconOnClickListener(v ->
+            setText(binding.inputAdvancedImei2, RandomGenerator.generateIMEI())
+        );
     }
 
     private void setupPresetDropdown() {
@@ -239,7 +249,12 @@ public class DeviceSettingsFragment extends Fragment {
         for (DevicePreset preset : presets) {
             labels.add(preset.getDisplayName());
         }
-        binding.presetDropdown.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, labels));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, labels);
+        adapter.setNotifyOnChange(true);
+        binding.presetDropdown.setAdapter(adapter);
+        binding.presetDropdown.setThreshold(1);
+
+        binding.presetCountLabel.setText(getString(R.string.settings_preset_count, presets.size()));
 
         DevicePreset preset = findPresetById(selectedPresetId);
         if (preset != null) {
@@ -285,6 +300,9 @@ public class DeviceSettingsFragment extends Fragment {
         setText(binding.inputOperatorNumeric, profile.getOperatorNumeric());
         setText(binding.inputSimCountry, profile.getSimCountryIso());
         setText(binding.inputTimezone, profile.getTimezone());
+        setText(binding.inputBluetoothMac, profile.getBluetoothMac());
+        setText(binding.inputWifiMac, profile.getWifiMac());
+        setText(binding.inputWifiSsid, profile.getWifiSsid());
     }
 
     private void bindAdvancedProperties(Map<String, String> extraProperties) {
@@ -297,6 +315,9 @@ public class DeviceSettingsFragment extends Fragment {
         setText(binding.inputAdvancedGsfId, extraProperties.get(ConfigManager.KEY_SPOOF_GSF_ID));
         setText(binding.inputAdvancedMediaDrmId, extraProperties.get(ConfigManager.KEY_SPOOF_MEDIA_DRM_ID));
         setText(binding.inputAdvancedAppSetId, extraProperties.get(ConfigManager.KEY_SPOOF_APP_SET_ID));
+        setText(binding.inputAdvancedAndroidId, extraProperties.get(ConfigManager.KEY_SPOOF_ANDROID_ID));
+        setText(binding.inputAdvancedImei2, extraProperties.get(ConfigManager.KEY_SPOOF_IMEI2));
+        setText(binding.inputAdvancedSpoofedGmail, extraProperties.get(ConfigManager.KEY_SPOOF_GMAIL));
     }
 
     private void bindToggleStates(Map<String, String> extraProperties) {
@@ -320,6 +341,7 @@ public class DeviceSettingsFragment extends Fragment {
         setIfBlank(binding.inputAdvancedPhoneNumber, resolveCurrentPhoneNumber());
         setIfBlank(binding.inputAdvancedGsfId, resolveCurrentGsfId());
         setIfBlank(binding.inputAdvancedMediaDrmId, resolveCurrentMediaDrmId());
+        setIfBlank(binding.inputAdvancedAndroidId, resolveCurrentAndroidId());
         loadGoogleIdsIfNeeded();
     }
 
@@ -343,8 +365,16 @@ public class DeviceSettingsFragment extends Fragment {
         if (binding == null) {
             return;
         }
-        binding.advancedContentCard.setVisibility(advancedExpanded ? View.VISIBLE : View.GONE);
-        binding.advancedToggleIcon.setRotation(advancedExpanded ? 180f : 0f);
+        if (advancedExpanded) {
+            binding.advancedContentCard.setVisibility(View.VISIBLE);
+            binding.advancedContentCard.setAlpha(0f);
+            binding.advancedContentCard.animate().alpha(1f).setDuration(200).start();
+        } else {
+            binding.advancedContentCard.animate().alpha(0f).setDuration(150).withEndAction(() -> {
+                if (binding != null) binding.advancedContentCard.setVisibility(View.GONE);
+            }).start();
+        }
+        binding.advancedToggleIcon.animate().rotation(advancedExpanded ? 180f : 0f).setDuration(200).start();
     }
 
     private Map<String, String> buildExtraProperties() {
@@ -362,6 +392,12 @@ public class DeviceSettingsFragment extends Fragment {
         putOptional(extraProperties, ConfigManager.KEY_SPOOF_GSF_ID, text(binding.inputAdvancedGsfId));
         putOptional(extraProperties, ConfigManager.KEY_SPOOF_MEDIA_DRM_ID, text(binding.inputAdvancedMediaDrmId));
         putOptional(extraProperties, ConfigManager.KEY_SPOOF_APP_SET_ID, text(binding.inputAdvancedAppSetId));
+        putOptional(extraProperties, ConfigManager.KEY_SPOOF_BLUETOOTH_MAC, text(binding.inputBluetoothMac));
+        putOptional(extraProperties, ConfigManager.KEY_SPOOF_WIFI_MAC, text(binding.inputWifiMac));
+        putOptional(extraProperties, ConfigManager.KEY_SPOOF_WIFI_SSID, text(binding.inputWifiSsid));
+        putOptional(extraProperties, ConfigManager.KEY_SPOOF_ANDROID_ID, text(binding.inputAdvancedAndroidId));
+        putOptional(extraProperties, ConfigManager.KEY_SPOOF_IMEI2, text(binding.inputAdvancedImei2));
+        putOptional(extraProperties, ConfigManager.KEY_SPOOF_GMAIL, text(binding.inputAdvancedSpoofedGmail));
         for (ToggleBinding toggleBinding : toggleBindings.values()) {
             String key = ConfigManager.getTogglePropertyKey(toggleBinding.fieldId);
             if (toggleBinding.toggle.isChecked()) {
@@ -383,6 +419,9 @@ public class DeviceSettingsFragment extends Fragment {
         setText(binding.inputAdvancedGsfId, "");
         setText(binding.inputAdvancedMediaDrmId, "");
         setText(binding.inputAdvancedAppSetId, "");
+        setText(binding.inputAdvancedAndroidId, "");
+        setText(binding.inputAdvancedImei2, "");
+        setText(binding.inputAdvancedSpoofedGmail, "");
     }
 
     private void installSpoofToggles() {
@@ -412,6 +451,10 @@ public class DeviceSettingsFragment extends Fragment {
         registerToggle(ConfigManager.FIELD_SIM_COUNTRY, layoutOf(binding.inputSimCountry), true);
         registerToggle(ConfigManager.FIELD_TIMEZONE, layoutOf(binding.inputTimezone), true);
 
+        registerToggle(ConfigManager.FIELD_BLUETOOTH_MAC, layoutOf(binding.inputBluetoothMac), true);
+        registerToggle(ConfigManager.FIELD_WIFI_MAC, layoutOf(binding.inputWifiMac), true);
+        registerToggle(ConfigManager.FIELD_WIFI_SSID, layoutOf(binding.inputWifiSsid), true);
+
         registerToggle(ConfigManager.FIELD_IMEI, binding.layoutAdvancedImei, false);
         registerToggle(ConfigManager.FIELD_MEID, binding.layoutAdvancedMeid, false);
         registerToggle(ConfigManager.FIELD_IMSI, binding.layoutAdvancedImsi, false);
@@ -421,6 +464,9 @@ public class DeviceSettingsFragment extends Fragment {
         registerToggle(ConfigManager.FIELD_GSF_ID, binding.layoutAdvancedGsfId, false);
         registerToggle(ConfigManager.FIELD_MEDIA_DRM_ID, binding.layoutAdvancedMediaDrmId, false);
         registerToggle(ConfigManager.FIELD_APP_SET_ID, binding.layoutAdvancedAppSetId, false);
+        registerToggle("android_id", binding.layoutAdvancedAndroidId, false);
+        registerToggle(ConfigManager.FIELD_IMEI2, binding.layoutAdvancedImei2, false);
+        registerToggle("spoofed_gmail", binding.layoutAdvancedSpoofedGmail, false);
 
         updateFieldEnablement();
     }
@@ -542,6 +588,10 @@ public class DeviceSettingsFragment extends Fragment {
         applyEditTextState(binding.inputSimCountry, ConfigManager.FIELD_SIM_COUNTRY, true);
         applyEditTextState(binding.inputTimezone, ConfigManager.FIELD_TIMEZONE, true);
 
+        applyEditTextState(binding.inputBluetoothMac, ConfigManager.FIELD_BLUETOOTH_MAC, true);
+        applyEditTextState(binding.inputWifiMac, ConfigManager.FIELD_WIFI_MAC, true);
+        applyEditTextState(binding.inputWifiSsid, ConfigManager.FIELD_WIFI_SSID, true);
+
         applyEditTextState(binding.inputAdvancedImei, ConfigManager.FIELD_IMEI, false);
         applyEditTextState(binding.inputAdvancedMeid, ConfigManager.FIELD_MEID, false);
         applyEditTextState(binding.inputAdvancedImsi, ConfigManager.FIELD_IMSI, false);
@@ -551,6 +601,9 @@ public class DeviceSettingsFragment extends Fragment {
         applyEditTextState(binding.inputAdvancedGsfId, ConfigManager.FIELD_GSF_ID, false);
         applyEditTextState(binding.inputAdvancedMediaDrmId, ConfigManager.FIELD_MEDIA_DRM_ID, false);
         applyEditTextState(binding.inputAdvancedAppSetId, ConfigManager.FIELD_APP_SET_ID, false);
+        applyEditTextState(binding.inputAdvancedAndroidId, "android_id", false);
+        applyEditTextState(binding.inputAdvancedImei2, ConfigManager.FIELD_IMEI2, false);
+        applyEditTextState(binding.inputAdvancedSpoofedGmail, "spoofed_gmail", false);
     }
 
     private void applyEditTextState(TextInputEditText editText, String fieldId, boolean dependsOnCustomMode) {
@@ -652,6 +705,17 @@ public class DeviceSettingsFragment extends Fragment {
                 return null;
             }
             return telephonyManager.getLine1Number();
+        } catch (Throwable ignored) {
+            return null;
+        }
+    }
+
+    private String resolveCurrentAndroidId() {
+        try {
+            return Settings.Secure.getString(
+                requireContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID
+            );
         } catch (Throwable ignored) {
             return null;
         }

@@ -114,7 +114,8 @@
     <string name="settings_advanced_summary">Leave these blank to keep the real device values.</string>
     <string name="settings_generate_random">Generate random value</string>
     <string name="settings_clear_all">Clear all</string>
-    <string name="settings_hint_preset">Preset</string>
+    <string name="settings_hint_preset">Search preset…</string>
+    <string name="settings_preset_count">%1$d presets loaded — type to search</string>
     <string name="settings_field_brand">Brand</string>
     <string name="settings_field_manufacturer">Manufacturer</string>
     <string name="settings_field_model">Model</string>
@@ -145,6 +146,17 @@
     <string name="settings_field_gsf_id">GSF ID</string>
     <string name="settings_field_media_drm_id">MediaDrm ID (hex)</string>
     <string name="settings_field_app_set_id">App Set ID</string>
+    <string name="settings_field_bluetooth_mac">Bluetooth MAC</string>
+    <string name="settings_field_wifi_mac">WiFi MAC</string>
+    <string name="settings_field_wifi_ssid">WiFi SSID</string>
+    <string name="settings_field_imei2">IMEI2 (SIM 2)</string>
+    <string name="settings_field_android_id">Android ID</string>
+    <string name="settings_field_spoofed_gmail">Spoofed Gmail</string>
+    <string name="settings_section_connectivity">Connectivity</string>
+    <string name="settings_hide_root">Hide Root</string>
+    <string name="settings_hide_root_summary">Block root detection by common apps and root checker tools</string>
+    <string name="settings_mock_location">Mock Location</string>
+    <string name="settings_mock_location_summary">Override device GPS location with spoofed coordinates</string>
     <string name="settings_custom_summary">Custom editing based on %1$s - %2$s</string>
     <string name="settings_preset_summary">%1$s - %2$s</string>
     <string name="settings_app_info_title">App Info</string>

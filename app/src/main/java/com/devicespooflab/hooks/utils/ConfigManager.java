@@ -50,6 +50,14 @@ public class ConfigManager {
     public static final String KEY_SPOOF_GSF_ID = "device.gsf_id";
     public static final String KEY_SPOOF_MEDIA_DRM_ID = "device.media_drm_id";
     public static final String KEY_SPOOF_APP_SET_ID = "device.app_set_id";
+    public static final String KEY_SPOOF_BLUETOOTH_MAC = "device.bluetooth_mac";
+    public static final String KEY_SPOOF_WIFI_MAC = "device.wifi_mac";
+    public static final String KEY_SPOOF_WIFI_SSID = "device.wifi_ssid";
+    public static final String KEY_SPOOF_IMEI2 = "device.imei2";
+    public static final String KEY_SPOOF_ANDROID_ID = "ANDROID_ID";
+    public static final String KEY_SPOOF_GMAIL = "device.spoofed_gmail";
+    public static final String KEY_HIDE_ROOT = "device.hide_root";
+    public static final String KEY_MOCK_LOCATION = "device.mock_location";
     public static final String KEY_SAFE_MODE_PACKAGES = "safe_mode.packages";
     public static final String KEY_SPOOF_TOGGLE_PREFIX = "spoof.enabled.";
 
@@ -83,6 +91,10 @@ public class ConfigManager {
     public static final String FIELD_GSF_ID = "gsf_id";
     public static final String FIELD_MEDIA_DRM_ID = "media_drm_id";
     public static final String FIELD_APP_SET_ID = "app_set_id";
+    public static final String FIELD_BLUETOOTH_MAC = "bluetooth_mac";
+    public static final String FIELD_WIFI_MAC = "wifi_mac";
+    public static final String FIELD_WIFI_SSID = "wifi_ssid";
+    public static final String FIELD_IMEI2 = "imei2";
 
     private static final String[] CONFIG_PATHS = {
         "/data/local/tmp/spoofmydevice_device_profile.conf",
@@ -937,7 +949,54 @@ public class ConfigManager {
     }
 
     public static String getAndroidId() {
+        if (!isSpoofEnabled("android_id")) {
+            return null;
+        }
         return getOptionalConfigValue("ANDROID_ID");
+    }
+
+    public static String getBluetoothMac() {
+        if (!isSpoofEnabled(FIELD_BLUETOOTH_MAC)) {
+            return null;
+        }
+        return getOptionalConfigValue(KEY_SPOOF_BLUETOOTH_MAC);
+    }
+
+    public static String getWifiMac() {
+        if (!isSpoofEnabled(FIELD_WIFI_MAC)) {
+            return null;
+        }
+        return getOptionalConfigValue(KEY_SPOOF_WIFI_MAC);
+    }
+
+    public static String getWifiSsid() {
+        if (!isSpoofEnabled(FIELD_WIFI_SSID)) {
+            return null;
+        }
+        return getOptionalConfigValue(KEY_SPOOF_WIFI_SSID);
+    }
+
+    public static String getIMEI2() {
+        if (!isSpoofEnabled(FIELD_IMEI2)) {
+            return null;
+        }
+        return getOptionalConfigValue(KEY_SPOOF_IMEI2);
+    }
+
+    public static String getSpoofedGmail() {
+        return getOptionalConfigValue(KEY_SPOOF_GMAIL);
+    }
+
+    public static boolean isHideRootEnabled() {
+        String value = getOptionalConfigValue(KEY_HIDE_ROOT);
+        if (value == null) {
+            return false;
+        }
+        return value.equals("1") || value.equalsIgnoreCase("true");
+    }
+
+    public static String getMockLocation() {
+        return getOptionalConfigValue(KEY_MOCK_LOCATION);
     }
 
     public static byte[] getMediaDrmId() {

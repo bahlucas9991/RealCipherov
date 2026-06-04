@@ -2,8 +2,10 @@ package com.devicespooflab.hooks;
 
 import android.os.Build;
 
+import com.devicespooflab.hooks.hooks.AccountHooks;
 import com.devicespooflab.hooks.hooks.AdvertisingIdHooks;
 import com.devicespooflab.hooks.hooks.AppSetIdHooks;
+import com.devicespooflab.hooks.hooks.BluetoothHooks;
 import com.devicespooflab.hooks.hooks.BuildHooks;
 import com.devicespooflab.hooks.hooks.DisplayHooks;
 import com.devicespooflab.hooks.hooks.EmulatorDetectionHooks;
@@ -12,11 +14,13 @@ import com.devicespooflab.hooks.hooks.HardwareHooks;
 import com.devicespooflab.hooks.hooks.JavaSystemPropertyHooks;
 import com.devicespooflab.hooks.hooks.MediaDrmHooks;
 import com.devicespooflab.hooks.hooks.PackageManagerHooks;
+import com.devicespooflab.hooks.hooks.RootDetectionHooks;
 import com.devicespooflab.hooks.hooks.SettingsHooks;
 import com.devicespooflab.hooks.hooks.SystemPropertiesHooks;
 import com.devicespooflab.hooks.hooks.TelephonyHooks;
 import com.devicespooflab.hooks.hooks.VendorSystemPropertiesHooks;
 import com.devicespooflab.hooks.hooks.WebViewHooks;
+import com.devicespooflab.hooks.hooks.WifiHooks;
 import com.devicespooflab.hooks.utils.ConfigManager;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -157,6 +161,34 @@ public class MainHook implements IXposedHookLoadPackage {
             XposedBridge.log(TAG + ": WebViewHooks loaded");
         } catch (Exception exception) {
             XposedBridge.log(TAG + ": WebViewHooks failed: " + exception.getMessage());
+        }
+
+        try {
+            BluetoothHooks.hook(lpparam);
+            XposedBridge.log(TAG + ": BluetoothHooks loaded");
+        } catch (Exception exception) {
+            XposedBridge.log(TAG + ": BluetoothHooks failed: " + exception.getMessage());
+        }
+
+        try {
+            WifiHooks.hook(lpparam);
+            XposedBridge.log(TAG + ": WifiHooks loaded");
+        } catch (Exception exception) {
+            XposedBridge.log(TAG + ": WifiHooks failed: " + exception.getMessage());
+        }
+
+        try {
+            AccountHooks.hook(lpparam);
+            XposedBridge.log(TAG + ": AccountHooks loaded");
+        } catch (Exception exception) {
+            XposedBridge.log(TAG + ": AccountHooks failed: " + exception.getMessage());
+        }
+
+        try {
+            RootDetectionHooks.hook(lpparam);
+            XposedBridge.log(TAG + ": RootDetectionHooks loaded");
+        } catch (Exception exception) {
+            XposedBridge.log(TAG + ": RootDetectionHooks failed: " + exception.getMessage());
         }
 
         try {

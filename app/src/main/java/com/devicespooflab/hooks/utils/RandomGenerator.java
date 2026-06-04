@@ -109,6 +109,33 @@ public class RandomGenerator {
         return androidId.toString();
     }
 
+    public static String generateMacAddress() {
+        StringBuilder mac = new StringBuilder();
+        String hexChars = "0123456789ABCDEF";
+        for (int i = 0; i < 6; i++) {
+            if (i > 0) {
+                mac.append(":");
+            }
+            mac.append(hexChars.charAt(random.nextInt(16)));
+            mac.append(hexChars.charAt(random.nextInt(16)));
+        }
+        return mac.toString();
+    }
+
+    public static String generateWiFiSSID() {
+        String[] ssids = {
+            "Home Wi-Fi", "Guest Network", "Hotspot", "DIRECT-",
+            "Linksys", "Netgear", "TP-Link", "ASUS",
+            "HomeNet", "The_Internet", "FBI Surveillance Van",
+            "Free Public WiFi", "Starbucks WiFi", "ATT",
+            "xfinitywifi", "CableWiFi", "OptimumWiFi"
+        };
+        if (random.nextInt(3) == 0) {
+            return ssids[random.nextInt(ssids.length)];
+        }
+        return "WiFi-" + generateHex(4).toUpperCase(Locale.US);
+    }
+
     /**
      * Generate Build.FINGERPRINT in format:
      * brand/product/device:version/build_id/incremental:type/keys

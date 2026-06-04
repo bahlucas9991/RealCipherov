@@ -114,6 +114,8 @@ public class AppSettingsFragment extends Fragment {
         binding.systemColorsSwitch.setChecked(systemColorsEnabled);
         binding.colorStyleRow.setVisibility(systemColorsEnabled ? View.GONE : View.VISIBLE);
         binding.resolutionSwitch.setChecked(activity.isScreenMetricsSpoofEnabled());
+        binding.hideRootSwitch.setChecked(activity.isHideRootEnabled());
+        binding.mockLocationSwitch.setChecked(activity.isMockLocationEnabled());
         applying = false;
     }
 
@@ -185,6 +187,22 @@ public class AppSettingsFragment extends Fragment {
                 binding.resolutionSwitch.setChecked(!isChecked);
                 applying = false;
             }
+        });
+
+        binding.hideRootRow.setOnClickListener(v -> binding.hideRootSwitch.toggle());
+        binding.hideRootSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (applying || !(requireActivity() instanceof MainActivity)) {
+                return;
+            }
+            ((MainActivity) requireActivity()).updateHideRootEnabled(isChecked);
+        });
+
+        binding.mockLocationRow.setOnClickListener(v -> binding.mockLocationSwitch.toggle());
+        binding.mockLocationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (applying || !(requireActivity() instanceof MainActivity)) {
+                return;
+            }
+            ((MainActivity) requireActivity()).updateMockLocationEnabled(isChecked);
         });
     }
 

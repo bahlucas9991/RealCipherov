@@ -380,6 +380,18 @@ public class MainActivity extends AppCompatActivity {
         return "1".equals(value) || "true".equalsIgnoreCase(value);
     }
 
+    public boolean isHideRootEnabled() {
+        Map<String, String> extraProperties = loadedConfig.getExtraProperties();
+        String value = extraProperties.get(ConfigManager.KEY_HIDE_ROOT);
+        return "1".equals(value) || "true".equalsIgnoreCase(value);
+    }
+
+    public boolean isMockLocationEnabled() {
+        Map<String, String> extraProperties = loadedConfig.getExtraProperties();
+        String value = extraProperties.get(ConfigManager.KEY_MOCK_LOCATION);
+        return "1".equals(value) || "true".equalsIgnoreCase(value);
+    }
+
     public boolean updateScreenMetricsSpoofEnabled(boolean enabled) {
         try {
             Map<String, String> extraProperties = new LinkedHashMap<>(loadedConfig.getExtraProperties());
@@ -394,6 +406,33 @@ public class MainActivity extends AppCompatActivity {
             if (homeFragment != null) {
                 homeFragment.refresh();
             }
+            Snackbar.make(binding.getRoot(), R.string.settings_saved, Snackbar.LENGTH_SHORT).show();
+            return true;
+        } catch (Exception exception) {
+            Snackbar.make(binding.getRoot(), getString(R.string.save_failed) + " " + exception.getMessage(), Snackbar.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
+    public boolean updateHideRootEnabled(boolean enabled) {
+        return updateToggleProperty(ConfigManager.KEY_HIDE_ROOT, enabled);
+    }
+
+    public boolean updateMockLocationEnabled(boolean enabled) {
+        return updateToggleProperty(ConfigManager.KEY_MOCK_LOCATION, enabled);
+    }
+
+    private boolean updateToggleProperty(String key, boolean enabled) {
+        try {
+            Map<String, String> extraProperties = new LinkedHashMap<>(loadedConfig.getExtraProperties());
+            extraProperties.put(key, Boolean.toString(enabled));
+            loadedConfig = configFileManager.save(
+                this,
+                loadedConfig.getProfile(),
+                extraProperties,
+                loadedConfig.getSelectedPresetId(),
+                loadedConfig.isCustomMode()
+            );
             Snackbar.make(binding.getRoot(), R.string.settings_saved, Snackbar.LENGTH_SHORT).show();
             return true;
         } catch (Exception exception) {
