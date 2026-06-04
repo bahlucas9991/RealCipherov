@@ -33,10 +33,8 @@ android {
         viewBinding = true
     }
 
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+    packagingOptions {
+        excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
 }
 
